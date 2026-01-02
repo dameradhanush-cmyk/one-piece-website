@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>One Piece Fan Website</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Poppins;background:#f2f7ff;color:#111;transition:.3s}
+body.dark{background:#0d1117;color:#e6edf3}
+
+/* HEADER */
+header{background:linear-gradient(135deg,#0077ff,#00c2ff);color:white;padding:18px 40px;position:sticky;top:0;z-index:20}
+nav{display:flex;justify-content:space-between;align-items:center}
+nav ul{list-style:none;display:flex;gap:18px}
+nav a{color:white;text-decoration:none;font-weight:500}
+.toggle-btn{background:#ffd60a;padding:6px 12px;border-radius:8px;cursor:pointer;color:#111;font-weight:600}
+
+/* HERO */
+.hero{text-align:center;padding:70px 20px;background:url('https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=1200&q=60') center/cover no-repeat;color:white}
+
+/* LAYOUT */
+section{padding:60px 20px;max-width:1100px;margin:auto}
+h2{margin-bottom:18px;color:#0b62ff}
+body.dark h2{color:#7ab7ff}
+
+/* CARDS */
+.card-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:white;padding:15px;border-radius:10px;box-shadow:0 8px 18px rgba(0,0,0,.08);transition:.3s;cursor:pointer}
+.card:hover{transform:translateY(-6px)}
+body.dark .card{background:#161b22}
+.card img{width:100%;border-radius:10px}
+
+/* SEARCH */
+input{padding:10px 14px;width:100%;border-radius:8px;border:1px solid #aaa;margin-bottom:18px}
+
+/* TIMELINE */
+.timeline{position:relative;margin-left:10px}
+.timeline::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:3px;background:#0b62ff}
+.timeline-item{margin-left:30px;margin-bottom:25px}
+.timeline-item img{width:100%;border-radius:8px;margin:8px 0}
+
+/* FOOTER */
+footer{background:#021c36;color:white;text-align:center;padding:20px;z-index:2;position:relative}
+
+/* WAVES */
+.ocean{position:fixed;left:0;right:0;bottom:0;height:120px;overflow:hidden;z-index:0}
+.wave{position:absolute;left:0;width:200%;height:100px;bottom:0;background:url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg"><path d="M0 67 C 150 120 350 0 600 67 C 850 135 1050 20 1200 67 L 1200 200 L 0 200 Z" fill="%2300aaff"/></svg>');background-size:50% 100%;animation:wave 12s linear infinite;opacity:.8}
+.wave:nth-child(2){bottom:10px;animation-duration:16s;opacity:.5}
+.wave:nth-child(3){bottom:18px;animation-duration:20s;opacity:.3}
+@keyframes wave{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;justify-content:center;align-items:center;z-index:50}
+.modal-content{background:#fff;padding:20px;border-radius:12px;max-width:800px;width:95%}
+body.dark .modal-content{background:#0f1622;color:white}
+.close{float:right;cursor:pointer;font-size:20px}
+
+/* SLIDESHOW */
+.slide-img{width:100%;border-radius:10px}
+
+/* TYPING */
+#story{min-height:120px}
+
+/* POWER BARS */
+.power{background:#ddd;border-radius:10px;margin-bottom:4px}
+.power div{height:14px;border-radius:10px;width:0;background:#00b4ff;transition:1s}
+
+/* BOUNTY */
+#poster{width:100%;border:6px solid #5b3a23;background:#f4e3b2;text-align:center;padding:10px}
+.poster-img{width:70%}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<div class="logo">☠ ONE PIECE FAN SITE</div>
+<ul>
+<li><a href="#crew">Characters</a></li>
+<li><a href="#arcs">Arcs</a></li>
+<li><a href="#gallery">Gallery</a></li>
+</ul>
+<div class="toggle-btn" onclick="toggleDark()">🌙 Dark Mode</div>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Set Sail with the Straw Hats</h1>
+<p>Fan-made website celebrating One Piece</p>
+</section>
+
+<!-- CHARACTER SEARCH + CARDS -->
+<section id="crew">
+<h2>Character Database</h2>
+
+<input id="searchInput" placeholder="Search characters..." onkeyup="searchCharacters()">
+
+<div id="characterList" class="card-grid">
+
+<div class="card" onclick="openProfile('luffy')" data-name="luffy monkey d strawhat">
+<img src="images/luffy.jpg" loading="lazy">
+<h3>Monkey D. Luffy</h3>
+</div>
+
+<div class="card" onclick="openProfile('zoro')" data-name="zoro roronoa swordsman">
+<img src="images/zoro.jpg" loading="lazy">
+<h3>Roronoa Zoro</h3>
+</div>
+
+<div class="card" onclick="openProfile('nami')" data-name="nami navigator">
+<img src="images/nami.jpg" loading="lazy">
+<h3>Nami</h3>
+</div>
+
+<div class="card" onclick="openProfile('sanji')" data-name="sanji vinsmoke cook">
+<img src="images/sanji.jpg" loading="lazy">
+<h3>Sanji</h3>
+</div>
+
+<div class="card" onclick="openProfile('kaido')" data-name="kaido yonko">
+<img src="images/kaido.jpg" loading="lazy">
+<h3>Kaido</h3>
+</div>
+
+<div class="card" onclick="openProfile('akainu')" data-name="akainu admiral">
+<img src="images/akainu.jpg" loading="lazy">
+<h3>Akainu</h3>
+</div>
+
+</div>
+</section>
+
+<!-- ARC TIMELINE -->
+<section id="arcs">
+<h2>Arc Timeline</h2>
+<div class="timeline">
+
+<div class="timeline-item">
+<h3>🏴‍☠️ East Blue Saga</h3>
+<img src="https://via.placeholder.com/600x250?text=East+Blue">
+<p>The beginning of Luffy’s journey.</p>
+</div>
+
+<div class="timeline-item">
+<h3>🔥 Alabasta</h3>
+<img src="https://via.placeholder.com/600x250?text=Alabasta">
+<p>The battle against Crocodile.</p>
+</div>
+
+<div class="timeline-item">
+<h3>⚔ Enies Lobby</h3>
+<img src="https://via.placeholder.com/600x250?text=Enies+Lobby">
+<p>Robin’s rescue mission.</p>
+</div>
+
+</div>
+</section>
+
+<!-- SIMPLE GALLERY -->
+<section id="gallery">
+<h2>Gallery</h2>
+<div class="card-grid">
+<img src="images/luffy-wp.jpg" loading="lazy">
+<img src="images/zoro-wp.jpg" loading="lazy">
+<img src="images/nami-wp.jpg" loading="lazy">
+<img src="images/sanji-wp.jpg" loading="lazy">
+</div>
+</section>
+
+<footer>
+Fan-made website — images belong to respective owners
+</footer>
+
+<!-- WAVES -->
+<div class="ocean">
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
+</div>
+
+<!-- CHARACTER MODAL -->
+<div class="modal" id="profileModal">
+<div class="modal-content">
+<span class="close" onclick="closeProfile()">❌</span>
+
+<h2 id="charName"></h2>
+
+<img id="slide" class="slide-img">
+
+<p id="story"></p>
+
+<h3>Powers</h3>
+<div class="power"><div id="atk"></div></div>Attack
+<div class="power"><div id="def"></div></div>Defense
+<div class="power"><div id="spd"></div></div>Speed
+
+<h3>Bounty Poster</h3>
+<div id="poster">
+<h2>WANTED</h2>
+<img id="posterImg" class="poster-img">
+<h3 id="posterName"></h3>
+<h3>Bounty: <span id="bounty"></span></h3>
+</div>
+
+</div>
+</div>
+
+<script>
+// dark mode
+function toggleDark(){document.body.classList.toggle('dark')}
+
+// search
+function searchCharacters(){
+const input=document.getElementById("searchInput").value.toLowerCase();
+document.querySelectorAll("#characterList .card").forEach(c=>{
+c.style.display=c.getAttribute("data-name").includes(input)?"block":"none";
+});
+}
+
+// character data
+const characters={
+luffy:{
+name:"Monkey D. Luffy",
+bounty:"3,000,000,000",
+images:["images/luffy.jpg","images/luffy-wp.jpg"],
+story:"A cheerful pirate whose dream is to become the Pirate King.",
+power:{atk:95,def:80,spd:90}
+},
+zoro:{
+name:"Roronoa Zoro",
+bounty:"1,111,000,000",
+images:["images/zoro.jpg","images/zoro-wp.jpg"],
+story:"A master swordsman aiming to be the strongest in the world.",
+power:{atk:98,def:92,spd:85}
+},
+nami:{
+name:"Nami",
+bounty:"366,000,000",
+images:["images/nami.jpg","images/nami-wp.jpg"],
+story:"The navigator who dreams of mapping the whole world.",
+power:{atk:70,def:55,spd:88}
+},
+sanji:{
+name:"Vinsmoke Sanji",
+bounty:"1,032,000,000",
+images:["images/sanji.jpg","images/sanji-wp.jpg"],
+story:"The Straw Hat cook who fights using the Black Leg style.",
+power:{atk:92,def:75,spd:95}
+},
+kaido:{
+name:"Kaido",
+bounty:"4,611,100,000",
+images:["images/kaido.jpg"],
+story:"One of the Yonko known as the world’s strongest creature.",
+power:{atk:100,def:100,spd:70}
+},
+akainu:{
+name:"Akainu",
+bounty:"Fleet Admiral",
+images:["images/akainu.jpg"],
+story:"A ruthless Marine Fleet Admiral with magma powers.",
+power:{atk:97,def:95,spd:75}
+}
+};
+
+let slideTimer;
+
+function openProfile(id){
+clearInterval(slideTimer);
+const c=characters[id];
+
+document.getElementById("profileModal").style.display="flex";
+document.getElementById("charName").innerText=c.name;
+
+// slideshow
+let i=0;
+document.getElementById("slide").src=c.images[0];
+slideTimer=setInterval(()=>{
+i=(i+1)%c.images.length;
+document.getElementById("slide").src=c.images[i];
+},2000);
+
+// typing story
+let t=0;document.getElementById("story").innerHTML="";
+const s=c.story;
+const typer=setInterval(()=>{
+document.getElementById("story").innerHTML+=s.charAt(t);
+t++;if(t>=s.length)clearInterval(typer);
+},25);
+
+// bars
+document.getElementById("atk").style.width=c.power.atk+"%";
+document.getElementById("def").style.width=c.power.def+"%";
+document.getElementById("spd").style.width=c.power.spd+"%";
+
+// poster
+document.getElementById("posterImg").src=c.images[0];
+document.getElementById("posterName").innerText=c.name;
+document.getElementById("bounty").innerText=c.bounty;
+}
+
+function closeProfile(){
+document.getElementById("profileModal").style.display="none";
+clearInterval(slideTimer);
+}
+</script>
+
+</body>
+</html>
